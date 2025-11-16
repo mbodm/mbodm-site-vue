@@ -29,8 +29,5 @@ body {
     /* Next code line is used to respect some eventually existing vertical scrollbar. */
     max-width: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-#app {
-    height: 100%;
+    background-color: red;
 }
