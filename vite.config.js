@@ -11,5 +11,12 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  // The "server" and "preview" settings fix a Firefox startup delay issue
+  server: {
+    host: '0.0.0.0'
+  },
+  preview: {
+    host: '0.0.0.0'
   }
 });
