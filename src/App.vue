@@ -1,68 +1,144 @@
 <script setup>
-import { lang } from './lang';
+import { useRoute } from 'vue-router';
+import { lang } from './lang/state';
+import logo from '@/assets/avatar.jpg';
+
+const route = useRoute();
 </script>
 
 <template>
   <div class="layout">
     <header>
       <nav>
-        <RouterLink to="/">{{ lang.entries.home }}</RouterLink>
-        <RouterLink to="/about">{{ lang.entries.about }}</RouterLink>
-        <RouterLink to="/contact">{{ lang.entries.contact }}</RouterLink>
+        <template v-if="route.path === '/'">
+          <img :src="logo" alt="Logo" />
+          <a href="https://github.com/mbodm">GitHub</a>
+          <RouterLink to="/contact">{{ lang.entries.contactLabel }}</RouterLink>
+          <RouterLink to="/about">{{ lang.entries.aboutLabel }}</RouterLink>
+        </template>
+        <RouterLink v-else to="/">{{ lang.entries.homeLabel }}</RouterLink>
       </nav>
-      <div class="lang-switch">
+      <aside>
+        <!-- <img src={langIcon} alt="lang-icon" /> -->
         <button @click="lang.setLang('en')" :class="{ active: lang.code === 'en' }">EN</button>
         <button @click="lang.setLang('de')" :class="{ active: lang.code === 'de' }">DE</button>
-      </div>
+      </aside>
     </header>
     <main>
       <RouterView />
     </main>
-    <footer>{{ lang.entries.footer }}</footer>
+    <footer v-if="route.path === '/'">{{ lang.entries.footerMessage }}</footer>
   </div>
 </template>
 
 <style scoped>
-header {
-  background: #eee;
-  padding: 10px;
-
+.layout {
+  /* reason for next line -> fill app container */
+  height: 100%;
+  /* reason for next 2 lines -> content from "top to bottom" -> header - main (remaining space) - footer */
   display: flex;
+  flex-direction: column;
+  background-color: var(--secondary-color);
+}
+
+header {
+  /* reason for next 3 lines -> content from "left to right" -> nav - remaining space - aside */
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-}
-
-nav a {
-  margin-right: 15px;
-  text-decoration: none;
-  color: black;
-}
-
-nav a.router-link-exact-active {
-  color: #0074d9;
-}
-
-.lang-switch button {
-  margin-left: 5px;
-  padding: 4px 6px;
-  border: none;
-  background: #ddd;
-  cursor: pointer;
-}
-
-.lang-switch button.active {
-  background: #0074d9;
-  color: white;
+  font-size: small;
 }
 
 main {
-  padding: 20px;
+  /* reason for next line -> fill remaining space inside layout container ("top to bottom") */
+  flex: 1;
 }
 
 footer {
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
-  color: #777;
-  font-size: 0.9rem;
+  font-size: small;
+  color: var(--separator-color);
+}
+
+header>nav,
+header>aside {
+  padding: 10px;
+}
+
+header>nav>img,
+header>aside>img {
+  margin-right: 10px;
+  /* reason for next line -> baseline differs for <img> and <a> and <button> */
+  vertical-align: middle;
+}
+
+header>nav>a,
+header>aside>button {
+  color: var(--primary-color);
+  /* reason for next line -> baseline differs for <img> and <a> and <button> */
+  vertical-align: middle;
+}
+
+header>nav>a {
+  text-decoration: none;
+}
+
+header>aside>button {
+  /* reason for next 5 lines -> reset default button style */
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  /* reason for next line -> apply the <a> cursor style to <button> */
+  cursor: pointer;
+}
+
+header>nav>a+a,
+header>aside>button+button {
+  /* reason for this code block -> create separator (but only between of 2 header elements) */
+  border-left: 2px solid var(--separator-color);
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+/* debug colors */
+
+.layout.debug {
+  background-color: lightcoral;
+}
+
+.layout.debug header {
+  background-color: lightgreen;
+}
+
+.layout.debug main {
+  background-color: lightblue;
+}
+
+.layout.debug footer {
+  background-color: lightyellow;
+}
+
+.layout.debug header>nav,
+.layout.debug header>aside {
+  background-color: red;
+}
+
+.layout.debug header>nav>img,
+.layout.debug header>aside>img {
+  background-color: green;
+}
+
+.layout.debug header>nav>a,
+.layout.debug header>aside>button {
+  background-color: blue;
+}
+
+.layout.debug header>nav>a+a,
+.layout.debug header>aside>button+button {
+  border-left: 2px solid yellow;
 }
 </style>

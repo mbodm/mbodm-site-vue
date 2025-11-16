@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --fix --cache"
+    "build": "eslint . && vite build",
+    "preview": "eslint . && vite build && vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "vue": "^3.5.22",

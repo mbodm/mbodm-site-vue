@@ -1,19 +1,5 @@
 import { reactive } from 'vue';
-
-export const translations = {
-  en: {
-    home: 'Home',
-    about: 'About',
-    contact: 'Contact',
-    footer: 'No cookies used on this site.'
-  },
-  de: {
-    home: 'Zurück',
-    about: 'Über',
-    contact: 'Kontakt',
-    footer: 'Diese Seite verwendet keinerlei Cookies.'
-  }
-};
+import { translations } from './translations';
 
 export const lang = reactive({
   // Initial language code

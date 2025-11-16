@@ -6,7 +6,7 @@ import pluginVue from 'eslint-plugin-vue';
 export default defineConfig([
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
+    files: ['**/*.{js,mjs,jsx,vue}']
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
@@ -14,9 +14,9 @@ export default defineConfig([
   {
     languageOptions: {
       globals: {
-        ...globals.browser,
-      },
-    },
+        ...globals.browser
+      }
+    }
   },
 
   js.configs.recommended,
@@ -25,6 +25,7 @@ export default defineConfig([
     rules: {
       semi: ['error', 'always'],
       quotes: ['error', 'single'],
-    },
+      'comma-dangle': ['error', 'never']
+    }
   }
 ]);

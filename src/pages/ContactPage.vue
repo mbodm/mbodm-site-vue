@@ -1,5 +1,5 @@
 <script setup>
-import { lang } from '../lang';
+import { lang } from '@/lang/state';
 </script>
 
 <template>
